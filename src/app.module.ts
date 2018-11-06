@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MongooseModule } from '@nestjs/mongoose';
 import { VendasModule } from './vendas/vendas.module';
+import { ClientesModule } from './clientes/clientes.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { VendasModule } from './vendas/vendas.module';
     }),
     MongooseModule.forRoot('mongodb://mongodb:27017/cqrs'),
     VendasModule,
+    ClientesModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,0 +1,1 @@
+export const VENDA_TOKEN = 'VendaToken';

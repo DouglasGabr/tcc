@@ -1,10 +1,22 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { MongooseModule } from '@nestjs/mongoose';
+import { VendasModule } from './vendas/vendas.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'mysql',
+      port: 3306,
+      username: 'root',
+      password: 'password',
+      database: 'cqrs',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: true,
+    }),
+    MongooseModule.forRoot('mongodb://mongodb:27017/cqrs'),
+    VendasModule,
+  ],
 })
 export class AppModule {}

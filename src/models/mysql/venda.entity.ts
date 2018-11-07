@@ -11,7 +11,7 @@ export class VendaEntity extends AggregateRoot {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column('float')
   valorTotal: number;
 
   @ManyToOne(type => ClienteEntity, cliente => cliente.vendas)

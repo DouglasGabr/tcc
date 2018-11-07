@@ -8,7 +8,7 @@ export class VendaItemEntity {
   id: number;
   @Column()
   quantidade: number;
-  @Column()
+  @Column('float')
   valorUnitario: number;
   @ManyToOne(type => ProdutoEntity, produto => produto.vendaItens)
   produto: ProdutoEntity;

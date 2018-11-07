@@ -13,9 +13,11 @@ import { VendaSavedHandler } from './events/venda-saved/venda-saved.handler';
 import { ClienteEntity } from 'src/models/mysql/cliente.entity';
 import { ProdutoEntity } from 'src/models/mysql/produto.entity';
 import { UpdateVendaHandler } from './commands/update-venda/update-venda.handler';
+import { RemoveVendaHandler } from './commands/remove-venda/remove-venda.handler';
+import { VendaRemovedHandler } from './events/venda-removed/venda-removed.handler';
 
-const CommandHandlers = [InsertVendaHandler, UpdateVendaHandler];
-const EventHandlers = [VendaSavedHandler];
+const CommandHandlers = [InsertVendaHandler, UpdateVendaHandler, RemoveVendaHandler];
+const EventHandlers = [VendaSavedHandler, VendaRemovedHandler];
 
 @Module({
   imports: [

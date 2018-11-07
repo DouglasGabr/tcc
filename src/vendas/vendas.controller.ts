@@ -1,4 +1,4 @@
-import { Controller, Get, Post, HttpCode, Body, Param, Put } from '@nestjs/common';
+import { Controller, Get, Post, HttpCode, Body, Param, Put, Delete } from '@nestjs/common';
 import { VendasService } from './vendas.service';
 import { InsertVendaDto } from './dtos/insert-venda.dto';
 import { UpdateVendaDto } from './dtos/update-venda.dto';
@@ -37,6 +37,16 @@ export class VendasController {
       throw result;
     } else {
       return 'Update sendo processado com sucesso!';
+    }
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: number) {
+    const result = await this.vendasService.delete(id);
+    if (result !== true) {
+      throw result;
+    } else {
+      return 'Delete sendo processado com sucesso!';
     }
   }
 }

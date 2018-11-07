@@ -11,6 +11,7 @@ import { VendaEntity } from 'src/models/mysql/venda.entity';
 import { Repository } from 'typeorm';
 import { UpdateVendaDto } from './dtos/update-venda.dto';
 import { UpdateVendaCommand } from './commands/update-venda/update-venda.command';
+import { RemoveVendaCommand } from './commands/remove-venda/remove-venda.command';
 
 @Injectable()
 export class VendasService {
@@ -42,6 +43,12 @@ export class VendasService {
   async update(id: number, updateVendaDto: UpdateVendaDto) {
     return await this.commandBus.execute(
       new UpdateVendaCommand(updateVendaDto, id),
+    );
+  }
+
+  async delete(id: number) {
+    return await this.commandBus.execute(
+      new RemoveVendaCommand(id),
     );
   }
 

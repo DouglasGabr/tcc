@@ -9,6 +9,8 @@ import { VendaInterface } from 'src/models/mongodb/venda.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { VendaEntity } from 'src/models/mysql/venda.entity';
 import { Repository } from 'typeorm';
+import { UpdateVendaDto } from './dtos/update-venda.dto';
+import { UpdateVendaCommand } from './commands/update-venda/update-venda.command';
 
 @Injectable()
 export class VendasService {
@@ -35,6 +37,12 @@ export class VendasService {
       throw new NotFoundException(`Venda com ID ${id} não encontrada`);
     }
     return venda;
+  }
+
+  async update(id: number, updateVendaDto: UpdateVendaDto) {
+    return await this.commandBus.execute(
+      new UpdateVendaCommand(updateVendaDto, id),
+    );
   }
 
 }

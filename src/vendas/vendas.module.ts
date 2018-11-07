@@ -12,8 +12,9 @@ import { CommandBus, EventBus, CQRSModule } from '@nestjs/cqrs';
 import { VendaSavedHandler } from './events/venda-saved/venda-saved.handler';
 import { ClienteEntity } from 'src/models/mysql/cliente.entity';
 import { ProdutoEntity } from 'src/models/mysql/produto.entity';
+import { UpdateVendaHandler } from './commands/update-venda/update-venda.handler';
 
-const CommandHandlers = [InsertVendaHandler];
+const CommandHandlers = [InsertVendaHandler, UpdateVendaHandler];
 const EventHandlers = [VendaSavedHandler];
 
 @Module({

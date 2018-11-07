@@ -22,8 +22,6 @@ export class VendaEntity extends AggregateRoot {
   itens: VendaItemEntity[];
 
   save() {
-    this.apply(
-      new VendaSavedEvent(this),
-    );
+    this.apply(new VendaSavedEvent(this));
   }
 }

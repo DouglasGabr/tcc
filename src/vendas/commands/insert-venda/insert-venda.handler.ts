@@ -23,14 +23,11 @@ export class InsertVendaHandler implements ICommandHandler<InsertVendaCommand> {
     try {
       const { insertVendaDto } = command;
 
-      const { cliente } = await this.validate(insertVendaDto);
-
-      const produtos = (await this.produtosRepository.findByIds(insertVendaDto.itens.map(item => item.produtoId)))
-        .reduce((obj, cur) => ({ ...obj, [cur.id]: cur }), {});
+      const { cliente, produtosById } = await this.validate(insertVendaDto);
 
       const itens = insertVendaDto.itens.map(item => {
         const itemModel = new VendaItemEntity();
-        itemModel.produto = produtos[item.produtoId];
+        itemModel.produto = produtosById[item.produtoId];
         itemModel.valorUnitario = item.valorUnitario;
         itemModel.quantidade = item.quantidade;
         return itemModel;
@@ -69,6 +66,13 @@ export class InsertVendaHandler implements ICommandHandler<InsertVendaCommand> {
         throw new BadRequestException('Mais de um item com mesmo produtoId');
       }
     });
-    return { cliente };
+    const produtos = await this.produtosRepository.findByIds(vendaDto.itens.map(item => item.produtoId));
+
+    if (produtos.length !== vendaDto.itens.length) {
+      throw new BadRequestException('Todos os itens devem possuir produtoId de produtos que existam!');
+    }
+
+    const produtosById = produtos.reduce((obj, cur) => ({ ...obj, [cur.id]: cur }), {});
+    return { cliente, produtosById };
   }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, HttpCode, Body } from '@nestjs/common';
+import { Controller, Get, Post, HttpCode, Body, Param } from '@nestjs/common';
 import { VendasService } from './vendas.service';
 import { InsertVendaDto } from './dtos/insert-venda.dto';
 
@@ -22,5 +22,10 @@ export class VendasController {
     } else {
       return 'Inserção sendo processada com sucesso!';
     }
+  }
+
+  @Get(':id')
+  async findById(@Param('id') id: number) {
+    return await this.vendasService.findById(id);
   }
 }

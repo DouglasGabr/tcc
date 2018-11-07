@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
 
 export const VendaSchema = new Schema({
-  mysqlId: Number,
+  id: Number,
   valorTotal: Number,
   cliente: Object,
   itens: [Object],

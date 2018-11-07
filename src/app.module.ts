@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MongooseModule } from '@nestjs/mongoose';
 import { VendasModule } from './vendas/vendas.module';
 import { ClientesModule } from './clientes/clientes.module';
+import { ProdutosModule } from './produtos/produtos.module';
+import { GlobalModule } from './global.module';
 
 @Module({
   imports: [
@@ -17,8 +19,10 @@ import { ClientesModule } from './clientes/clientes.module';
       synchronize: true,
     }),
     MongooseModule.forRoot('mongodb://mongodb:27017/cqrs'),
+    GlobalModule,
     VendasModule,
     ClientesModule,
+    ProdutosModule,
   ],
 })
 export class AppModule { }

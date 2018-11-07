@@ -7,7 +7,7 @@ export class ProdutoEntity {
   id: number;
   @Column()
   nome: string;
-  @Column()
+  @Column('float')
   preco: number;
   @OneToMany(type => VendaItemEntity, item => item.produto)
   vendaItens: VendaItemEntity[];

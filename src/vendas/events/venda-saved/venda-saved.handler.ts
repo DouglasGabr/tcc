@@ -8,7 +8,7 @@ import { VENDA_TOKEN } from 'src/constants/tokens';
 import { Model } from 'mongoose';
 import { VendaInterface } from 'src/models/mongodb/venda.interface';
 
-@EventsHandler()
+@EventsHandler(VendaSavedEvent)
 export class VendaSavedHandler implements IEventHandler<VendaSavedEvent> {
 
   constructor(
@@ -19,11 +19,11 @@ export class VendaSavedHandler implements IEventHandler<VendaSavedEvent> {
   async handle(event: VendaSavedEvent) {
     const { venda } = event;
     const savedVenda = await this.vendasRepository.save(venda);
-    let mongoVenda = await this.vendaMongoModel.findOne({ mysqlId: savedVenda.id });
+    let mongoVenda = await this.vendaMongoModel.findOne({ id: savedVenda.id });
     if (!mongoVenda) {
       mongoVenda = new this.vendaMongoModel();
     }
-    mongoVenda.set({ ...savedVenda, mysqlId: savedVenda.id });
+    mongoVenda.set(savedVenda);
     await mongoVenda.save();
   }
 
